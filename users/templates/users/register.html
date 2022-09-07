@@ -1,0 +1,132 @@
+{% extends "base_users.html" %}
+
+{% block title %}Registration | StocksTracker{% endblock %}
+
+{% block extra_head_content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/style.css' %}">
+<script defer>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })()
+</script>
+{% endblock %}
+{% block content %}
+<div class="signuptext">
+    <h2 style="color:var(--color3);">Sign Up</h2>
+    <p style="color:var(--color5);">It's quick and easy.</p>
+</div>
+<hr>
+<form action="" class="needs-validation" novalidate method="POST">
+    {% csrf_token %}
+        <div class="row g-2 col-md-12 mb-3 position-relative">
+            <div class="form-floating">
+                {{ form.email }}
+                <label for="floatingInput" class="form-label">Email address</label>
+                <div class="invalid-tooltip">
+                    Please provide your email address
+                </div>
+            </div>   
+        </div>
+        <div class="row g-2 col-md-12 mb-3 position-relative">
+            <div class="form-floating">
+                {{ form.username }}
+                <label for="floatingUsername" class="form-label">Username</label>
+                <div class="invalid-tooltip">
+                    You'll use this to login
+                </div>
+            </div>   
+        </div>                
+        <div class="row g-2 col-md-12 mb-3 position-relative">
+            <div class="form-floating col-md-6">
+                {{ form.first_name }}
+                <label for="floatingFirstName" class="form-label">First name</label>
+                <div class="invalid-tooltip">
+                    Please enter your first name
+                </div>
+            </div>
+            <div class="form-floating col-md-6">
+                {{ form.last_name }}
+                <label for="floatingLastName" class="form-label">Surname</label>
+                <div class="invalid-tooltip">
+                    Please enter your last name
+                </div>
+            </div>
+        </div>
+        <div class="row g-2 col-md-12 mb-3 position-relative">
+            <div class="form-floating col-md-6">
+                {{ form.password1 }}
+                <label for="floatingPassword" class="form-label">Password</label>
+                <div class="invalid-tooltip">
+                    Enter a password
+                </div>
+            </div>
+            <div class="form-floating col-md-6">
+                {{ form.password2 }}
+                <label for="floatingConfirmPassword" class="form-label">Confirm Password</label>
+                <div class="invalid-tooltip">
+                    Enter the password again
+                </div>
+            </div>
+            <div class="errors">
+                {{ form.non_field_errors }}
+                {% if form.errors %}
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </symbol>
+                    </svg>
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>
+                            <ul>
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if form.username.errors %}
+                                    {% for error in form.username.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if form.password2.errors %}
+                                    {% for error in form.password2.errors %}
+                                        <li><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-12">
+            <button id="signupBtn" class="btn btn-success btn.lg" type="submit">Sign Up</button>
+        </div>
+        <div id="login">
+            <p style="color:#696969;">
+                Have an account?
+                <a href="{% url 'users:login' %}">Log in</a>
+            </p>
+        </div>
+    </div>
+</form>
+{% endblock %}

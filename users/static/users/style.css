@@ -1,0 +1,84 @@
+.container {
+    width: 450px;
+}
+
+.content hr {
+    margin-bottom: 16px;
+}
+
+.signuptext {
+    text-align: left;
+    margin-left: 12px;
+    margin-top: 8px;
+}
+
+.logintext {
+    color: var(--color3);
+    text-align: center;
+    margin-top: 8px;
+}
+
+form {
+    position: relative;
+    padding: auto;
+    margin-left: 2%;
+}
+
+.form-floating {
+    height: 48px;
+    margin: 8px auto;
+}
+
+input[type=text], input[type=password] {
+    background-color: var(--color4);
+}
+
+label {
+    font-size: calc(0.7 * var(--text1));
+}
+
+li {
+    margin: 0;
+    top: 50%;
+}
+
+.noaccess {
+    text-align: center;
+    width: 422px;
+    border-radius: 4px;
+    padding: 6px 12px;
+    background: var(--color2);
+    color: var(--color1);
+}
+
+.btn {
+    width: 422px;
+    height: 48px;
+    font-size: var(--textsize1);
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.createaccount button {
+    width: 220px;
+    height: 48px;
+}
+
+#signupBtn {
+    margin-right: 9px;
+}
+
+#login, #forgetpassword, #signup, .createaccount, .forget {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#login p a:link, .forget a:link, #signup p a:link {
+    text-decoration: none;
+}
+
+#login p a:hover, .forget a:hover, #signup p a:hover {
+    text-decoration: underline;
+}

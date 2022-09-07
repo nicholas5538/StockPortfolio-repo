@@ -1,0 +1,162 @@
+:root {
+    --h3width: 160px;
+}
+
+.container {
+    width: calc(100% - 200px);
+    max-width: 100%;
+    min-height: 100%;
+    margin-top: 10px;
+    margin-left: 200px;
+    padding-bottom: 150px;
+    letter-spacing: 0.05rem;
+}
+
+.content {
+    width: 800px;
+}
+
+h2.profile {
+    margin: 50px 20px;
+}
+
+/* form errors block */
+div#formerrors {
+    width: auto;
+    margin-left: 20px;
+    font-size: var(--textsize1);
+    border-radius: 5px;
+}
+
+div#formerrors ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+/* message block */
+ul.messages {
+    list-style-type: none;
+    background: #90EE90;
+    width: 220px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0 0 20px 20px;
+}
+
+ul.messages li {
+    padding: 10.5px 7.5px;
+    color: var(--color2);
+    font-size: var(--textsize1);
+    font-weight: 700;
+    text-align: center;
+}
+
+
+.content form {
+    max-width: 800px;
+    height: 100%;
+    margin: 0;
+}
+
+hr#breakpage {
+    width: 100%;
+    margin: 5px 0 25px 0;
+}
+
+/* Form CSS */
+form#edit-profile {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--textsize1);
+    margin-left: 20px;
+}
+
+
+form#edit-profile label {
+    margin-bottom: 5px;
+}
+
+form#edit-profile input {
+    margin-bottom: 20px;
+    font-size: var(--textsize1);
+}
+
+form#edit-profile .user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info .user, .user-info .name, .new_password {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user > div, .name > div, .new_password > div {
+    width: 48.89375%;
+}
+
+form#edit-profile .passwords {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form h3 CSS */
+form#edit-profile h3 {
+    text-align: center;
+    padding: 5px;
+    border-radius: 15px;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    margin-bottom: 20px;
+    color: var(--color1);
+    background-color: var(--color2);
+}
+
+form#edit-profile .user-info h3 {
+    width: var(--h3width);
+}
+
+form#edit-profile .passwords h3 {
+    width: calc(var(--h3width) + 100px);
+}
+
+/* Form Buttons */
+.buttons {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-top: 50px;
+    right: 0;
+}
+
+.buttons button, .buttons a{
+    min-width: 86px;
+    border-radius: 10px;
+    border-style: none;
+    padding: 10px;
+    font-size: calc(var(--textsize1) + 0.1rem);
+    font-weight: bold;
+    letter-spacing: 0.01rem;
+    cursor: pointer;
+    background-color: var(--positive);
+    color: var(--color1);
+}
+
+.buttons #submit:hover {
+    background-color: var(--submit);
+    transition: var(--transition1);
+}
+
+#cancel {
+    margin-left: 15px;
+    background-color: var(--negative)
+}
+
+#cancel:hover {
+    background-color: var(--cancel);
+    transition: var(--transition1);
+}

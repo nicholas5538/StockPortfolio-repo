@@ -1,0 +1,137 @@
+:root {
+    --background-color1: #228B22;
+    --background-color2: #DC143C;
+    --transitionall: all 0.5s ease;
+    --textsize1 : 0.8rem;
+}
+
+.container {
+    width: calc(100% - 200px);
+    max-width: 100%;
+    min-height: 100%;
+    margin-top: 10px;
+    margin-left: 200px;
+    padding-bottom: 150px;
+    letter-spacing: 0.05rem;
+}
+
+h2 {
+    margin: 50px 20px 50px 20px;
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+}
+
+h2 i {
+    margin-right: 20px;
+}
+
+.content form {
+    width: 800px;
+    height: 100%;
+}
+
+.errors {
+    max-width: 800px;
+    font-size: var(--textsize1);
+    margin-left: 20px;
+}
+
+.messages {
+    list-style-type: none;
+    background-color: #D3D3D3;
+    max-width: 600px;
+    height: 45px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    padding: 0;
+}
+
+.messages li {
+    padding: 10.5px 7.5px;
+    color: var(--color2);
+    font-size: var(--textsize1);
+    text-align: center;
+}
+
+.transaction_type label input {
+    width: 40px;
+    height: 15px;
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+
+.row1, .row2, .row3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 800px;
+    font-size: var(--textsize1);
+}
+
+.row1 div, .row2 div, .row3 div {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.row1 > div {
+    width: calc((800px - 15px) / 2);
+}
+
+.row3 > div {
+    width: calc((800px - 45px) / 4);
+}
+
+.row1 p, .row1 .form-label, .row2 p, .row3 p {
+    margin-bottom: 5px;
+}
+
+.row1 input, .row2 .transaction_date .form-control, .row3 input {
+    width: 100%;
+    height: 45px;
+    font-size: var(--textsize1);
+    text-align: start;
+    margin-bottom: 25px;
+}
+
+div .transaction_date, div .transaction_type, div .shares {
+    margin-left: 0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-top: 50px;
+}
+
+.buttons button, .buttons a {
+    min-width: 86px;
+    border-radius: 10px;
+    border-style: none;
+    padding: 10px;
+    font-size: calc(var(--textsize1) + 0.1rem);
+    font-weight: bold;
+    letter-spacing: 0.01rem;
+    cursor: pointer;
+    background-color: var(--background-color1);
+    color: var(--color1);
+}
+
+.buttons #submit:hover {
+    background-color: #32CD32;
+    color: var(--color2);
+    transition: var(--transitionall);
+}
+
+#cancel {
+    background-color: var(--background-color2);
+    margin-left: 15px;
+}
+
+#cancel:hover {
+    background-color: #FF4500;
+    color: var(--color2);
+    transition: var(--transitionall);
+}

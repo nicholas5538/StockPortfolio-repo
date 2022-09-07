@@ -1,0 +1,97 @@
+{% extends 'base_mainpage.html' %}
+{% block title %}Transactions | StocksTracker{% endblock %}
+{% block extra_head_content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mainpage/transactions.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    {% if messages %}
+    <div class="message">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="buyContainer">
+        <h2>Buy</h2>
+        {% if buy_transactions %}
+        <div class="table-wrap">
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa-solid fa-calendar-days"></i>&nbsp;Date</th>
+                        <th scope="col"><i class="fa-solid fa-table-list"></i>&nbsp;Symbol</th>
+                        <th scope="col"><i class="fa-solid fa-arrow-up-1-9"></i>&nbsp;Shares</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;Average Price</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;Cost Basis</th>
+                        <th scope="col"><i class="fa-solid fa-delete-left"></i>&nbsp;&nbsp;Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in buy_transactions %}
+                        <tr>
+                            <td>{{ transaction.transaction_date }}</td>
+                            <td>{{ transaction.symbol }}</td>
+                            <td id="share">{{ transaction.share|floatformat:-4 }}</td>
+                            <td id="avg_p">{{ transaction.avg_price|floatformat:-2 }}</td>
+                            <td id="cost_basis">{{ transaction.cost_basis|floatformat:-2 }}</td>
+                            <td class="buttons">
+                                <button id="delete" name="delete" value="{{ transaction.id }}">
+                                    <a href="{% url 'mainpage:delete_transaction' transaction.id %}">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No transaction records available, click&nbsp;<a href="{% url 'mainpage:update' user.id %}">here</a>&nbsp;to add</p>
+        {% endif %}
+    </div>
+    <div class="sellContainer">
+        <h2>Sell</h2>
+        {% if sell_transactions %}
+        <div class="table-wrap">
+            <table class="table sticky table-dark table-striped table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;Date</th>
+                        <th scope="col"><i class="fa-solid fa-table-list"></i>&nbsp;&nbsp;Ticker</th>
+                        <th scope="col"><i class="fa-solid fa-arrow-up-1-9"></i>&nbsp;&nbsp;Shares</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Average Price</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Cost Basis</th>
+                        <th scope="col"><i class="fa-solid fa-delete-left"></i>&nbsp;&nbsp;Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in sell_transactions %}
+                        <tr>
+                            <td>{{ transaction.transaction_date }}</td>
+                            <td>{{ transaction.symbol }}</td>
+                            <td>{{ transaction.share|floatformat:-4 }}</td>
+                            <td>{{ transaction.avg_price|floatformat:-2 }}</td>
+                            <td>{{ transaction.cost_basis|floatformat:-2}}</td>
+                            <td>
+                                <button id="delete" name="delete" value="{{ transaction.id }}">
+                                    <a href="{% url 'mainpage:delete_transaction' transaction.id %}">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </a>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No transaction records available, click&nbsp;<a href="{% url 'mainpage:update' user.id %}">here</a>&nbsp;to add</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,55 @@
+.deleteContainer {
+    width: 50%;
+    height: auto;
+    margin-left: 220px;
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--color2);
+}
+
+.deleteContent {
+    padding: 0 15px;
+}
+
+.deleteContent h3 {
+    color: var(--color1);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.deleteContent table {
+    font-size: 0.75rem;
+    width: 84%;
+    margin-bottom: 20px;
+    border-spacing: 0 0.5rem;
+}
+
+.deleteContent table th, .deleteContent table td {
+    width: calc(100%/6);
+    text-align: center;
+    padding: 5px;
+}
+
+.deleteContent form {
+    margin-left: 0;
+}
+
+.deleteContainer form button {
+    font-size: 0.75rem;
+    margin-right: 10px;
+    padding: 8px 12px;
+    font-weight: bold;
+}
+
+
+#cancel {
+    text-decoration: none;
+    color: var(--color1);
+}
+
+.container form button:hover {
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+}

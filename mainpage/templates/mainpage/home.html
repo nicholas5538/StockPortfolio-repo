@@ -1,0 +1,184 @@
+{% extends 'base_mainpage.html' %}
+{% block title %}Home | Stockstracker{% endblock %}
+{% block extra_head_content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mainpage/home.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2><i class="fa-solid fa-bars"></i>Summary</h2>
+    <div class="content">
+        <div class="row1">
+            <div class="holdings">
+                <div class="info">
+                    <h3><i class="fa-solid fa-list-ul"></i>&nbsp;Top Holdings</h3>
+                    <p>Net Liquidity:&nbsp;<i class="fa-solid fa-dollar-sign"></i>{{ net_liquidity|floatformat:-2 }}</p>
+                </div>
+                <div class="holdings-wrap">
+                    {% if top_holdings %}
+                    <table class="table table-dark table-borderless table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><i class="fa-solid fa-table-list"></i>&nbsp;&nbsp;Ticker</th>
+                                <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Last Price</th>
+                                <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Current Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticker, last_price, current_value in top_holdings %}
+                            <tr>
+                                <th scope="row">{{ ticker }} </th>
+                                <td>{{ last_price|floatformat:-2 }}</td>
+                                <td>{{ current_value|floatformat:-2}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p class="invalid">You do not have any position, click 
+                        <span class=update><a href="{% url 'mainpage:update' user.id %}">here</a></span>
+                        to add
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="performance">
+                <h3><i class="fa-solid fa-chart-line"></i>&nbsp;Indices Performance</h3>
+                <div class="performance-wrap">
+                    <table class="table table-dark table-borderless table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">YTD</th>
+                                <th scope="col">1Y</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">S&P 500 .SPX</th>
+                                {% for performance in spy %}
+                                {% if performance < 0 %}
+                                <td id="negative">
+                                {% else %}
+                                <td id="positive">
+                                {% endif %}
+                                    {{ performance|floatformat:"-2" }}%
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="row">NASDAQ .IXIC</th>
+                                {% for performance in nasdaq %}
+                                {% if performance < 0 %}
+                                <td id="negative">
+                                {% else %}
+                                <td id="positive">
+                                {% endif %}
+                                    {{ performance|floatformat:"-2" }}%
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th scope="row">DJIA .DJI</th>
+                                {% for performance in djia %}
+                                {% if performance < 0 %}
+                                <td id="negative">
+                                {% else %}
+                                <td id="positive">
+                                {% endif %}
+                                    {{ performance|floatformat:"-2" }}%
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="allocation">
+                <h3><i class="fa-solid fa-percent"></i>&nbsp;Top Allocations</h3>
+                <div class="allocation-wrap">
+                    <table class="table table-dark table-borderless table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col"><i class="fa-solid fa-table-list"></i>&nbsp;&nbsp;Ticker</th>
+                                <th scope="col"><i class="fa-solid fa-percent"></i>&nbsp;&nbsp;Allocation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for position, percentage in allocation %}
+                            <tr>
+                                <th scope="row">{{ position }}</th>
+                                <td>{{ percentage|floatformat:"-2" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="transactions">
+                <h3><i class="fa-solid fa-magnifying-glass-dollar"></i>&nbsp;Recent Transactions</h3>
+                <div class="transaction-table">
+                    <div class="buy-transactions-wrap">
+                        <p id="heading">Buy</p>
+                        {% if buy_transactions %}
+                        <table class="table table-dark table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><i class="fa-solid fa-table-list"></i>&nbsp;&nbsp;Ticker</th>
+                                    <th scope="col"><i class="fa-solid fa-arrow-up-1-9"></i>&nbsp;&nbsp;Shares</th>
+                                    <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Avg Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in buy_transactions %}
+                                <tr>
+                                    <th scope="row">{{ transaction.symbol }}</th>
+                                    <td>{{ transaction.share|floatformat:"-4" }}</td>
+                                    <td>{{ transaction.avg_price|floatformat:-2 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p class="invalid">You do not have any transaction, click 
+                            <span class=update><a href="{% url 'mainpage:update' user.id %}">here</a></span>
+                            to add
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="sell-transactions-wrap">
+                        <p id="heading">Sell</p>
+                        {% if sell_transactions %}
+                        <table class="table table-dark table-borderless table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><i class="fa-solid fa-table-list"></i>&nbsp;&nbsp;Ticker</th>
+                                    <th scope="col"><i class="fa-solid fa-arrow-up-1-9"></i>&nbsp;&nbsp;Shares</th>
+                                    <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Avg Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in sell_transactions %}
+                                <tr>
+                                    <th scope="row">{{ transaction.symbol }}</th>
+                                    <td>{{ transaction.share|floatformat:"-4" }}</td>
+                                    <td>{{ transaction.avg_price|floatformat:2 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p class="invalid">You do not have any transaction, click 
+                            <span class=update><a href="{% url 'mainpage:update' user.id %}">here</a></span>
+                            to add
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'base_mainpage.html' %}
+{% block title %}Portfolio | StocksTracker{% endblock %}
+{% block extra_head_content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mainpage/portfolio.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    {% if messages %}
+    <div class="message">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div class="portfolio">
+        <div class="title">
+            <h2><i class="fa-solid fa-chart-line"></i>&nbsp;Portfolio</h2>
+            {% if portfolio %}
+            <div class="info">
+                <div class="date"><span><p>As of {{ date }}</p><button onClick="window.location.reload();"><i class="fa-solid fa-arrows-rotate"></i></button></span></div>
+                <div class="net_liquidity">
+                    <p>Net Liquidity</p>
+                    <span><i class="fa-solid fa-dollar-sign"></i>{{ net_liquidity|floatformat:-2 }}</span>
+                </div>
+                <div class="net_profit_loss">
+                    <p>Net P/L</p>
+                    {% if net_profit_loss == 0 %}
+                    <span>
+                    {% elif net_profit_loss > 0 %}
+                    <span id="positive">
+                    {% else %}
+                    <span id="negative">
+                    {% endif %}
+                        <i class="fa-solid fa-dollar-sign"></i>{{ net_profit_loss|floatformat:-2 }}
+                    </span>
+                </div>
+                <div class="daily_pl">
+                    <p>Daily P/L</p>
+                    {% if daily_profit_loss == 0 %}
+                    <span>
+                    {% elif daily_profit_loss > 0 %}
+                    <span id="positive">
+                    {% else %}
+                    <span id="negative">
+                    {% endif %}
+                        <i class="fa-solid fa-dollar-sign"></i>{{ daily_profit_loss|floatformat:-2 }}
+                    </span>
+                </div>
+            </div>
+        </div> 
+        <div class="table-wrap">
+            <table class="table table-dark table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"><i class="fa-solid fa-table-list"></i>&nbsp;&nbsp;Ticker</th>
+                        <th scope="col"><i class="fa-solid fa-arrow-up-1-9"></i>&nbsp;&nbsp;Shares</th>
+                        <th scope="col"><i class="fa-solid fa-percent"></i>&nbsp;&nbsp;Daily</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Last Price</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Avg Price</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Cost Basis</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;Current Value</th>
+                        <th scope="col"><i class="fa-solid fa-dollar-sign"></i>&nbsp;&nbsp;P/L</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for daily_pc, price, position in portfolio_details %}
+                    <tr>
+                        <th scope="row">
+                            <a href="https://finance.yahoo.com/quote/{{ position.symbol }}" target="_blank" rel="noopener noreferrer">
+                                {{ position.symbol }}
+                            </a>
+                        </th>
+                        <td>{{ position.total_shares }}</td>
+                        {% if daily_pc == 0 %}
+                        <td>
+                        {% elif daily_pc >= 0 %}
+                        <td id="positive">
+                        {% else %}
+                        <td id="negative">
+                        {% endif %}
+                            {{ daily_pc|floatformat:-2 }}
+                        </td>
+                        <td>{{ price|floatformat:-2 }}</td>
+                        <td>{{ position.avg_price|floatformat:-2 }}</td>
+                        <td>{{ position.cost_basis|floatformat:-2 }}</td>
+                        <td>{{ position.current_value|floatformat:-2 }}</td>
+                        {% if position.profit_loss == 0 %}
+                        <td>
+                        {% elif position.profit_loss > 0 %}
+                        <td id="positive">
+                        {% else %}
+                        <td id="negative">
+                        {% endif %}
+                            {{ position.profit_loss|floatformat:-2 }}
+                        </td>
+                        <td>
+                            <div class="btn-group dropstart">
+                                <button type="button" class="action" value="{{ portfolio.id }}" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="buysell"><a href="{% url 'mainpage:update' user.id %}">Buy / Sell</a></li>
+                                    <li id="close"><a href="{% url 'mainpage:close_position' position.id %}">Close Position</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="no_position">You do not have any position, click 
+            <span class=update><a href="{% url 'mainpage:update' user.id %}">here</a></span>
+            to add
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

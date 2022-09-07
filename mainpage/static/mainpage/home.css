@@ -1,0 +1,124 @@
+.container {
+    width: calc(100% - 200px);
+    max-width: 100%;
+    min-height: 100%;
+    margin-top: 10px;
+    margin-left: 200px;
+    padding-bottom: 150px;
+    letter-spacing: 0.05rem;
+}
+
+.container > h2 {
+    margin: 30px;
+}
+
+.container > h2 > i {
+    margin-right: 15px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    color: var(--color1);
+}
+
+.row1 {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 30px;
+}
+
+div.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+div.info p {
+    font-size: 0.6rem;
+    letter-spacing: 0.1rem;
+    margin-bottom: 0;
+}
+
+.row2 {
+    display: flex;
+    flex-direction: row;
+}
+
+.row1 h3, .row2 h3 {
+    color: var(--color1);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 0.15rem;
+}
+
+.holdings, .performance, .allocation, .transactions {
+    width: 600px;
+    height: auto;
+    background-color: var(--color2);
+    box-shadow: 0 5px 10px 1px var(--color2);
+    border-radius: 15px;
+    padding: 15px;
+    margin: 0 30px;
+}
+
+#heading {
+    width: 60px;
+    border-radius: 10px;
+    justify-content: center;
+    text-align: center;
+    color:var(--color1);
+    background-color: var(--color4);
+    font-size: 0.8rem;
+    margin: 10px auto;
+}
+
+p.invalid {
+    margin-top: 15px;
+    color: var(--color1);
+    font-size: 0.7rem;
+}
+
+p.invalid span.update a {
+    text-decoration: none;
+    color: var(--negative);
+}
+
+p.invalid span.update a:hover {
+    text-decoration: underline;
+}
+
+/* Table CSS */
+.holdings-wrap, .performance-wrap, .allocation-wrap, .buy-transactions-wrap, .sell-transactions-wrap {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin: 0;
+    letter-spacing: 0.1rem;
+}
+
+.sell-transactions-wrap {
+    margin-left: 10px;
+}
+
+table {
+    width: 100%;
+    margin-top: 15px;
+    font-size: 0.7rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.transaction-table {
+    display: flex;
+    flex-direction: row;
+}
+
+#positive {
+    color: var(--positive);
+}
+
+#negative {
+    color: var(--negative);
+}

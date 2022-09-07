@@ -1,0 +1,99 @@
+{% extends 'base_mainpage.html' %}
+{% block title %}Edit Profile | StocksTracker{% endblock %}
+{% block extra_head_content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mainpage/edit_profile.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="content">
+        <h2 class="profile"><i class="fa-solid fa-user-pen"></i>&nbsp;Edit Profile</h2>
+        <div id=formerrors class="errors col-12">
+            {{ form.non_field_errors }}
+            {% if form.errors %}
+                <div id=errors class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                    <div>
+                        <ul>
+                        {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                            <li><strong>{{ error|escape }}</strong></li>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.password2.errors %}
+                            {% for error in form.password2.errors %}
+                            <li><strong>{{ error|escape }}</strong></li>
+                            {% endfor %}
+                        {% endif %}
+                        </ul>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+        </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form id=edit-profile action="{% url 'mainpage:edit_profile' user.id %}" method="POST">
+            {% csrf_token %}
+            <div class="user-info">
+                <h3><i class="fa-solid fa-user"></i>&nbsp;User Info</h3>
+                <div class="user">
+                    <div class="username col-6">
+                        <label for="username" class="form-label">Username</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="email col-6">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input readonly class="form-control" type="text" id="email" name="email" value="{{ email }}">
+                    </div>
+                </div>
+                <div class="name">
+                    <div class="firstname col-6">
+                        <label for="firstname">First Name</label>
+                        <input class="form-control" type="text" id="firstname" name="firstname" value="{{ first_name }}">
+                    </div>
+                    <div class="lastname col-6">
+                        <label for="lastname">Last Name</label>
+                        <input class="form-control" type="text" id="lastname" name="lastname" value="{{ last_name }}">
+                    </div>
+                </div>
+            </div>
+            <hr id="breakpage">
+            <div class="passwords">
+                <h3><i class="fa-solid fa-user-lock"></i>&nbsp;Change Password</h3>
+                <div class="password col-12">
+                    <label for="password" class="form-label">Old Password</label>
+                    {{ form.password }}
+                    <div class="invalid-feedback">
+                        Please enter the old password
+                    </div>
+                </div>
+                <div class="new_password">
+                    <div class="password1 col-6">
+                        <label for="password1" class="form-label">New Password</label>
+                        {{ form.password1 }}
+                        <div class="invalid-feedback">
+                            Please enter the new password
+                        </div>
+                    </div>
+                    <div class="password2 col-6">
+                        <label for="password2" class="form-label">Confirm Password</label>
+                        {{ form.password2 }}
+                        <div class="invalid-feedback">
+                            Please enter the new password again
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="submit" type="submit" value="Save">Save Changes</button>
+                <a href="{% url 'mainpage:portfolio' user.id %}" class="btn btn-danger" id="cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

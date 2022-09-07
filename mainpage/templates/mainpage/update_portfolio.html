@@ -1,0 +1,121 @@
+{% extends 'base_mainpage.html' %}
+
+{% block title %}Update Portfolio | StocksTracker{% endblock %}
+{% block extra_head_content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'mainpage/update_portfolio.css' %}">
+<script defer>
+    function total_calculation() {
+        let share = parseFloat(document.getElementById('sharenumber').value);
+        let avg = parseFloat(document.getElementById('avgp').value);
+        let commission_fee = parseFloat(document.getElementById('commission').value);
+        let transaction = document.getElementById("transaction_type");
+        let type = transaction.options[transaction.selectedIndex].text;
+        if (type === 'Buy') {
+            var total = share * avg + commission_fee;
+        } else {
+            var total = share * avg - commission_fee;
+        }
+        // document.getElementById('commission').value = parseFloat(commission_fee).toFixed(2);
+        document.getElementById('costb').value = parseFloat(total).toFixed(2);
+    }
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="content">
+        <h2><i class="fa-solid fa-file-pen"></i>Update Portfolio</h2>
+        <div class="errors col-12">
+            {{ form.non_field_errors }}
+            {% if form.errors %}
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                    {% if form.symbol.errors %}
+                        {% for error in form.symbol.errors %}
+                            <strong>{{ error|escape }}</strong>
+                        {% endfor %}
+                    {% endif %}
+                    {% if form.transaction_date.errors %}
+                        {% for error in form.transaction_date.errors %}
+                            <strong>{{ error|escape }}</strong>
+                        {% endfor %}
+                    {% endif %}
+                    {% if form.share.errors %}
+                        {% for error in form.share.errors %}
+                            <strong>{{ error|escape }}</strong>
+                        {% endfor %}
+                    {% endif %}
+                    {% if form.avg_price.errors %}
+                        {% for error in form.avg_price.errors %}
+                            <strong>{{ error|escape }}</strong>
+                        {% endfor %}
+                    {% endif %}
+                    {% if form.commission_fee.errors %}
+                        {% for error in form.commission_fee.errors %}
+                            <strong>{{ error|escape }}</strong>
+                        {% endfor %}
+                    {% endif %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+        </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form method="POST" action="{% url 'mainpage:update' user.id %}">
+            {% csrf_token %}
+            <div class="row1">
+                <div class="transaction_type col-6">
+                    <p>Transaction Type</p>
+                    <select name="transaction" id="transaction_type" class="form-select">
+                        {% for value, text in form.transaction.field.choices %}
+                        <option value="{{ value }}" id="id_transaction_{{ forloop.counter0 }}">{{ text }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="symbol col-6">
+                    <label for="floatingSymbol" class="form-label">Ticker</label>
+                    {{ form.symbol }}
+                    <datalist id="tickers">
+                        {% for ticker in tickers %}
+                            <option value="{{ ticker.tickersymbol }}"></option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+            </div>
+            <div class="row2">
+                <div class="transaction_date col-12">
+                    <p>Traded On</p>
+                    {{ form.transaction_date }}
+                </div>
+            </div>
+            <div class="row3">
+                <div class="shares col-3">
+                    <p>Shares</p>
+                    {{ form.share }}
+                </div>
+                <div class="avgP col-3">
+                    <p>Average Price&nbsp;<i class="fa-solid fa-dollar-sign"></i></p>
+                    {{ form.avg_price }}
+                </div>
+                <div class="commission col-3">
+                    <p>Commission Fee&nbsp;<i class="fa-solid fa-dollar-sign"></i></p>
+                    {{ form.commission_fee }}
+                </div>
+                <div class="costB col-3">
+                    <p>Cost Basis&nbsp;<i class="fa-solid fa-dollar-sign"></i></p>
+                    {{ form.cost_basis }}
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="submit" name="confirm" type="submit" value="Submit and go to transaction">Submit</button>
+                <button id="submitanother" name="submitrender" type="submit" value="Submit and render new form">Submit and add another</button>
+                <a href="{% url 'mainpage:portfolio' user.id %}" class="btn btn-danger" id="cancel">Cancel</a>
+            </div>
+        </form>        
+    </div>
+</div>
+{% endblock %}
