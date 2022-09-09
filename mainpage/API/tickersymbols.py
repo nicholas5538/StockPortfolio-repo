@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from decimal import Decimal
-from .randomKey import test_token, marketstack_token
+from .randomKey import iex_token, iex_sandbox_token, marketstack_token
 
 # Extracting symbols from downloaded CSV
 def us_equities():
@@ -30,19 +30,19 @@ def us_equities():
     return ticker_symbols
 
 def company_quote(symbol):
-    url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={test_token}' 
+    url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={iex_sandbox_token}' 
     response = requests.get(url).json()
     return response
 
 def get_latest_price(symbol):
-    url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/price?token={test_token}'
+    url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/price?token={iex_sandbox_token}'
     return Decimal(requests.get(url).json())
 
 def get_one_year_price(symbol):
     # one_yr_date = (datetime.now() - relativedelta(years=1)).strftime('%Y-%m-%d')
     # url = f'http://api.marketstack.com/v1/eod/{one_yr_date}?access_key={token}&symbols={symbol}'
     # requests.get(url).json()['data']['close']
-    url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/chart/1y?token={test_token}'
+    url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/chart/1y?token={iex_sandbox_token}'
     return Decimal(requests.get(url).json()[-1]['close'])
 
 def get_ytd_price(symbol):
