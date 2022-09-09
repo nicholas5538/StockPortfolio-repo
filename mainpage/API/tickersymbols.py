@@ -1,7 +1,5 @@
 import csv, requests
 import pandas as pd
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from decimal import Decimal
 from .randomKey import iex_token, iex_sandbox_token, marketstack_token
 
@@ -39,9 +37,6 @@ def get_latest_price(symbol):
     return Decimal(requests.get(url).json())
 
 def get_one_year_price(symbol):
-    # one_yr_date = (datetime.now() - relativedelta(years=1)).strftime('%Y-%m-%d')
-    # url = f'http://api.marketstack.com/v1/eod/{one_yr_date}?access_key={token}&symbols={symbol}'
-    # requests.get(url).json()['data']['close']
     url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/chart/1y?token={iex_sandbox_token}'
     return Decimal(requests.get(url).json()[-1]['close'])
 
@@ -52,8 +47,6 @@ def get_ytd_price(symbol):
     return Decimal(dict(data[-1])['close'])
 
 def indices_performance():
-    # url = f'http://sandbox.iexapis.com/stable/stock/{one_yrs_ago}?access_key={token}&symbols={spy},{nasdaq}'
-    # one_year = requests.get(url).json()['data']
     indices = ['SPY', 'QQQ', 'DIA']
     spy_performances, nasdaq_performances, djia_performances = [], [], []
     for indice in indices:
@@ -76,8 +69,3 @@ def indices_performance():
 if __name__ == '__main__':
     with open('C:/Users/nicho/Desktop/Python/python_work/Portfolio/stockstracker/mainpage/API/output.txt', 'w') as f:
         print(us_equities(), file=f)
-
-# print(get_latest_price('SPY', 'Tpk_b92512064b5c4f27b2dd86b8bcd66b81'))
-# print(stock_performance('VOO', 'QQQM', '6f0a6ec2e07afe990d5675957ee51947'))
-# print(indices_performance(test_token))
-# print(get_ytd_price('SPY'))
