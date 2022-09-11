@@ -270,8 +270,8 @@ class TransactionsListView(LoginRequiredMixin, ListView):
         # Extract first 5 transactions for 'BUY' & 'SELL'
         context['username'] = get_object_or_404(User, pk=self.request.user.id)
         context['tickers'] = TickerSymbols.objects.all()
-        context['buy_transactions'] = transactions.filter(transaction='BUY').order_by('transaction_date')
-        context['sell_transactions'] = transactions.filter(transaction='SELL').order_by('transaction_date')
+        context['buy_transactions'] = transactions.filter(transaction='BUY').order_by('-transaction_date')
+        context['sell_transactions'] = transactions.filter(transaction='SELL').order_by('-transaction_date')
         return context
 
 
@@ -433,86 +433,3 @@ class DeleteTransactionView(LoginRequiredMixin, TemplateView):
 
         self.message('Transaction has been deleted')
         return redirect(reverse('mainpage:transactions', kwargs={'pk': current_user}))
-
-# class EditTransactionView(UpdatePortfolioView):
-
-#     form_class = EditTransactionForm
-#     template_name = 'mainpage/edit_transaction.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         user_id = self.request.user.id
-#         transaction = Transaction.objects.get(user_id=user_id, id=self.kwargs['pk'])
-#         initial_data = {
-#             'transaction': transaction.transaction,
-#             'symbol': transaction.symbol,
-#             'transaction_date': transaction.transaction_date,
-#             'share': transaction.share,
-#             'avg_price': transaction.avg_price,
-#             'cost_basis': transaction.cost_basis,
-#             'commission_fee': transaction.commission_fee,
-#         }
-#         context['transaction'] = transaction
-#         context['tickers'] = TickerSymbols.objects.all()
-#         context['form'] = self.form_class(initial=initial_data)
-#         return context
-
-#     def form_valid(self, form):
-#         transaction = Transaction.objects.filter(user_id=user_id, id=self.kwargs['pk'])
-#         user_id=self.request.user.id
-#         transaction = form.cleaned_data.get('transaction')
-#         symbol = form.cleaned_data.get('symbol').upper()
-#         shares = form.cleaned_data.get('share')
-#         avg_price = form.cleaned_data.get('avg_price')
-#         cost_basis = form.cleaned_data.get('cost_basis')
-#         company_info = company_quote(symbol)
-#         latest_price = Decimal(company_info['latestPrice'])
-#         if transaction == 'BUY':
-#             try:
-#                 position = Portfolio.objects.get(symbol__exact=symbol, user_id=user_id)
-#             except Portfolio.DoesNotExist:
-#                 Portfolio.objects.create(
-#                     symbol=symbol, company_name=company_info['companyName'],
-#                     user_id=user_id, total_shares=shares,
-#                     avg_price=cost_basis/shares, current_value=shares * latest_price,
-#                     profit_loss=shares * latest_price - cost_basis, cost_basis=cost_basis
-#                 )
-#             else:
-#                 new_shares = position.total_shares + shares
-#                 new_cb = position.cost_basis + cost_basis
-#                 position.total_shares = new_shares
-#                 position.avg_price = new_shares / cost_basis
-#                 position.current_value = new_shares * latest_price
-#                 position.cost_basis = new_cb
-#                 position.profit_loss = new_shares * latest_price - new_cb
-#                 position.save()
-            
-#         else:
-#             position = Portfolio.objects.get(symbol__exact=symbol, user_id=user_id)
-#             total_shares = position.total_shares
-#             if not Portfolio.objects.filter(symbol__exact=symbol, user_id=user_id) or shares > total_shares:
-#                 return super().form_invalid(form)
-#             else:
-#                 if shares == total_shares:
-#                     position.delete()
-#                 else:
-#                     new_shares = position.total_shares - shares
-#                     new_cb = position.cost_basis - cost_basis
-#                     position.total_shares = new_shares
-#                     position.avg_price = new_shares / cost_basis
-#                     position.current_value = new_shares * latest_price
-#                     position.cost_basis = new_cb
-#                     position.profit_loss = new_shares * latest_price - new_cb
-#                     position.save()
-        
-#         transaction.update(
-#                 transaction=transaction,
-#                 symbol=symbol,
-#                 transaction_date=form.cleaned_data.get('transaction_date'),
-#                 share=shares,
-#                 avg_price=avg_price,
-#                 cost_basis=cost_basis,
-#                 commission_fee=form.cleaned_data.get('commission_fee')
-#             )
-#         self.message('Your transaction has been updated')
-#         return super().form_valid(form)
