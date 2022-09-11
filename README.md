@@ -23,7 +23,7 @@ Take note of the following before you runserver:
     - marketstack API token
 3. ***Please change/enter the following codes as shown below***
 
-![alt text](https://github.com/nicholas5538/StockPortfolio-repo/blob/main/code.png?raw=true)
+![alt text](https://github.com/nicholas5538/StockPortfolio-repo/blob/main/pseudocode.png?raw=true)
 
 4. It is adviseable to run the application in virtual environment:
 
