@@ -8,8 +8,8 @@ import time
 class UserTestSetUp(StaticLiveServerTestCase):
 
     def setUp(self):
-        # self.browser = webdriver.Chrome(executable_path="C:/Users/nicho/Desktop/Python/python_work/Portfolio/stockstracker/chromedriver.exe")
-        self.browser = webdriver.Edge(executable_path="C:/Users/nicho/Desktop/Python/python_work/Portfolio/stockstracker/msedgedriver.exe")
+        # self.browser = webdriver.Chrome(executable_path=""C:/Users/nicho/Desktop/Python/StocksTracker/StockPortfolio-repo/chromedriver.exe")
+        self.browser = webdriver.Edge(executable_path="C:/Users/nicho/Desktop/Python/StocksTracker/StockPortfolio-repo/msedgedriver.exe")
         self.username = "weiwei123"
         self.email = "weiwei123@gmail.com"
         self.password1 = "123Frivolous"
