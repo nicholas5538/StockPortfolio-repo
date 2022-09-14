@@ -42,6 +42,7 @@ class Portfolio(models.Model):
 # To run under py manage.py shell:
 
 # from mainpage.models import TickerSymbols
-# tickers = "copy and paste list from output.txt"
-# objs = [TickerSymbols(tickersymbols=ticker) for ticker in tickers]
+# from mainpage.API.tickersymbols import us_equities
+# tickers = us_equities()
+# objs = [TickerSymbols(tickersymbol=ticker) for ticker in tickers]
 # TickerSymbols.objects.bulk_create(objs)

@@ -7,7 +7,8 @@ from .randomKey import iex_token, iex_sandbox_token, marketstack_token
 
 # Extracting symbols from downloaded CSV
 def us_equities():
-    market_data = 'C:/Users/nicho/Desktop/Python/python_work/Portfolio/stockstracker/mainpage/API/allTickerSymbols.csv'
+    # market_data = 'C:/Users/nicho/Desktop/Python/StocksTracker/StockPortfolio-repo/mainpage/API/allTickerSymbols.csv'
+    market_data = 'mainpage/API/allTickerSymbols.csv'
     df = pd.read_csv(market_data)
     # Make a new dataframe containing ticker symbols only
     symbols_df = df[['Symbol']].copy()
@@ -19,7 +20,8 @@ def us_equities():
     else:
         symbols_df.columns = symbols_df.iloc[0]
         symbols_df = symbols_df[1:]
-    file_path = 'C:/Users/nicho/Desktop/Python/python_work/Portfolio/stockstracker/mainpage/API/ticker_symbols.csv'
+    # file_path = 'C:/Users/nicho/Desktop/Python/StocksTracker/StockPortfolio-repo/mainpage/API/ticker_symbols.csv'
+    file_path = 'mainpage/API/ticker_symbols.csv'
     symbols_df.to_csv(file_path, encoding='utf-8', index=False)
 
     # Open symbols.csv
@@ -69,8 +71,3 @@ def indices_performance():
             djia_performances.append(((latest_price - one_year_price)/one_year_price * 100))
 
     return spy_performances, nasdaq_performances, djia_performances
-
-
-if __name__ == '__main__':
-    with open('C:/Users/nicho/Desktop/Python/python_work/Portfolio/stockstracker/mainpage/API/output.txt', 'w') as f:
-        print(us_equities(), file=f)
