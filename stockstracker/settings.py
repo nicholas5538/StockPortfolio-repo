@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'stockstracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd1djkdlgtkm9gn',
-        'USER': 'irbqquuqdhwhph',
-        'PASSWORD': '1fdbe999ae49b9b18381d19a3c1d35e16a0656a297b571ba32118c60be962c09',
-        'HOST': 'ec2-3-214-2-141.compute-1.amazonaws.com',
+        'NAME': 'name',
+        'USER': 'user',
+        'PASSWORD': '***************',
+        'HOST': 'host',
         'PORT': '5432'
     }
 }
