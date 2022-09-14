@@ -55,6 +55,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         portfolio = Portfolio.objects.filter(user_id=current_user).order_by('-current_value')
         buy_transactions = Transaction.objects.filter(user_id=current_user, transaction='BUY').order_by('-transaction_date')
         sell_transactions = Transaction.objects.filter(user_id=current_user, transaction='SELL').order_by('-transaction_date')
+        spy, nasdaq, djia = indices_performance()
         
         if not sell_transactions.exists() and not buy_transactions.exists():
             return self.empty_portfolio(context, tickers, spy, nasdaq, djia)
@@ -74,7 +75,6 @@ class HomeView(LoginRequiredMixin, TemplateView):
             portfolio, price, top_positions, current_value, percentage = ([] for i in range(5))
             net_liquidity = position_count = 0
 
-        spy, nasdaq, djia = indices_performance()
         top_holdings, allocation = self.count(position_count, top_positions, price, current_value, percentage)
         fields = [
             'tickers', 'buy_transactions', 'sell_transactions', 

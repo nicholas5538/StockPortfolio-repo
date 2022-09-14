@@ -21,11 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x52^9e&h8qw!u8jahvi---aw^f#+-g^jxbf4d6wt31dh2x+88d'
+SECRET_KEY = 'Enter your own secret key here'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
 ALLOWED_HOSTS = ['stockstracker.herokuapp.com']
 
 
@@ -79,10 +78,10 @@ WSGI_APPLICATION = 'stockstracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd1djkdlgtkm9gn',
-        'USER': 'irbqquuqdhwhph',
-        'PASSWORD': '1fdbe999ae49b9b18381d19a3c1d35e16a0656a297b571ba32118c60be962c09',
-        'HOST': 'ec2-3-214-2-141.compute-1.amazonaws.com',
+        'NAME': '********',
+        'USER': '********',
+        'PASSWORD': '********',
+        'HOST': '********',
         'PORT': '5432'
     }
 }
@@ -159,5 +158,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'nicholasdjango190@gmail.com'
-EMAIL_HOST_PASSWORD = 'jtcozupsqubirjib'
+EMAIL_HOST_USER = '********'
+EMAIL_HOST_PASSWORD = '*********'

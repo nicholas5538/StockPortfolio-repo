@@ -12,7 +12,13 @@
             <div class="holdings">
                 <div class="info">
                     <h3><i class="fa-solid fa-list-ul"></i>&nbsp;Top Holdings</h3>
-                    <p>Net Liquidity:&nbsp;<i class="fa-solid fa-dollar-sign"></i>{{ net_liquidity|floatformat:-2 }}</p>
+                    <p>Net Liquidity:&nbsp;<i class="fa-solid fa-dollar-sign"></i>
+                    {% if net_liquidity %}
+                        {{ net_liquidity|floatformat:-2 }}
+                    {% else %}
+                        0
+                    {% endif %}
+                    </p>
                 </div>
                 <div class="holdings-wrap">
                     {% if top_holdings %}
