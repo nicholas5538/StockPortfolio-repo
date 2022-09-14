@@ -6,7 +6,8 @@
 During the pandemic, a large chunk of retail investing crowded started and I was one of them. Upon using Interactive Broker, I wasn't satisifed with the amount of clicks I needed to access my investment transactions, the performance of my portfolio and many more. __Hence, I created this project to not only learn more about web development, but to gain a quick insight of my stock portfolio with relative ease and elevated convenience.__
 
 # About The Project #
-***StocksTracker*** is a web application that allows user to gain a quick insight into the performance of their stock portfolio and investment transaction. 
+### Website URL: **<a href="https://stockstracker-app.herokuapp.com/user/login/" target="_blank">StocksTracker</a>** ###
+***[StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url")*** is a web application that allows user to gain a quick insight into the performance of their stock portfolio and investment transactions.
 Note: Website can only be used in Desktop Fullscreen mode since it is not responsive!
 
 Tech used:
@@ -26,7 +27,7 @@ The application is split into the following:
   | Features | Description |
   | --- | --- |
   | Registration | Allows user to create account with unique username and email address |
-  | Login | Username and Password input, login authentication is performed with [Django user authentication system](https://docs.djangoproject.com/en/4.1/topics/auth/ "Django user authentication system") |
+  | Login | Username and Password input, login authentication is performed with [Django user authentication system](https://docs.djangoproject.com/en/4.1/topics/auth/default/ "Django user authentication system") |
   | Logout | Allows user to logout of web application |
   | Reset Password | Reset password URL will be sent by Email, this is achieved by [Django's SMTP backend](https://docs.djangoproject.com/en/4.1/topics/email/ "Django's SMTP backend") |
 
@@ -52,7 +53,7 @@ The application is split into the following:
 
 ## Configuration ##
 Take note of the following before you runserver:
-1. Create an account at [IEX Cloud](https://iexcloud.io/ "IEX Cloud title") and [marketstack](https://marketstack.com/ "marketstack title")
+1. Create an account at [IEX Cloud](https://iexcloud.io/ "IEX Cloud webpage") and [marketstack](https://marketstack.com/ "marketstack webpage")
 2. You will only be using these API token:
     - IEX Cloud public API token
     - IEX Cloud sandbox API token (Simulation and unlimited calls)
@@ -72,6 +73,6 @@ Take note of the following before you runserver:
 - UI of the application need a lot of room for improvement
 
 ### To-do list ###
-- [ ] Deploy web page to Heroku
+- [x] Deploy web page to Heroku
 - [ ] Make the web page more responsive
 - [ ] Implement edit transaction feature
