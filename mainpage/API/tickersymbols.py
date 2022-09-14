@@ -1,5 +1,7 @@
 import csv, requests
 import pandas as pd
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from decimal import Decimal
 from .randomKey import iex_token, iex_sandbox_token, marketstack_token
 
@@ -37,6 +39,9 @@ def get_latest_price(symbol):
     return Decimal(requests.get(url).json())
 
 def get_one_year_price(symbol):
+    # one_yr_date = (datetime.now() - relativedelta(years=1)).strftime('%Y-%m-%d')
+    # url = f'http://api.marketstack.com/v1/eod/{one_yr_date}?access_key={token}&symbols={symbol}'
+    # requests.get(url).json()['data']['close']
     url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/chart/1y?token={iex_sandbox_token}'
     return Decimal(requests.get(url).json()[-1]['close'])
 
