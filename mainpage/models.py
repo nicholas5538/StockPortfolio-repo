@@ -5,7 +5,7 @@ class TickerSymbols(models.Model):
     tickersymbol = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.tickersymbol
+        return f"Ticker symbol: {self.tickersymbol}"
 
 class Transaction(models.Model):
     buy = 'BUY'
