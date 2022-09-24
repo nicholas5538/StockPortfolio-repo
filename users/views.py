@@ -36,9 +36,9 @@ def login_view(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(request, username=username, password=password)
-            if user is not None:
+            if user:
                 login(request, user)
-                if next is None:
+                if not next or next == 'None':
                     return redirect(reverse('mainpage:home', kwargs={'pk': request.user.id}))
                 return redirect(request.POST.get('next'))
         login_url = reverse('users:login') # get the login url

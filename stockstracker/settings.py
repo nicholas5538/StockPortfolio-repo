@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x52^9e&h8qw!u8jahvi---aw^f#+-g^jxbf4d6wt31dh2x+88d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ['stockstracker.herokuapp.com']
+DEBUG = True
+ALLOWED_HOSTS = ['stockstracker-app.herokuapp.com']
 
 
 # Application definition

@@ -1,13 +1,10 @@
 import csv, requests
 import pandas as pd
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from decimal import Decimal
 from .randomKey import iex_token, iex_sandbox_token, marketstack_token
 
 # Extracting symbols from downloaded CSV
 def us_equities():
-    # market_data = 'C:/Users/nicho/Desktop/Python/StocksTracker/StockPortfolio-repo/mainpage/API/allTickerSymbols.csv'
     market_data = 'mainpage/API/allTickerSymbols.csv'
     df = pd.read_csv(market_data)
     # Make a new dataframe containing ticker symbols only
