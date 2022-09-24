@@ -2,17 +2,17 @@
     <img src="/assets/stockstracker.png"/>
 </p>
 
-# Motivation #
+# 💪 Motivation #
 During the pandemic, a large chunk of retail investing crowded started and I was one of them. Upon using Interactive Brokers, I wasn't satisifed with the amount of clicks I needed to access my investment transactions, the performance of my portfolio and many more. __Hence, I created this project to not only learn more about web development, but to gain a quick insight of my stock portfolio with relative ease and elevated convenience.__
 
-# About The Project #
-### Website URL: **<a href="https://stockstracker-app.herokuapp.com/user/login/" target="_blank">StocksTracker</a>** ###
+# 📝 About The Project #
+### Website URL: **<a href="https://stockstracker-app.herokuapp.com/user/login/" target="_blank">💹 StocksTracker</a>** ###
 ### Video Demostration: **<a href="https://youtu.be/T_cgG668pf4" target="_blank">StocksTracker Website Demostration</a>** ###
 **[StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url")** is a web application that allows user to gain a quick insight into the performance of their stock portfolio and investment transactions.
 
 ***Note***: 
 1. Website can only be used in Desktop Fullscreen mode since it is not responsive.
-2. Heroku will preserve dyno hours from wasting, thus it will put the website to sleep after 30 minutes of inactivity. Resulting in slow loading time for the first hit only
+2. Heroku will preserve dyno hours from wasting, resulting in slow loading time for the first hit only.
 
 #### Tech used: ####
 * Programming language
@@ -37,7 +37,7 @@ During the pandemic, a large chunk of retail investing crowded started and I was
 
 
 #### **[StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url")** is split into the following: ####
- 1. User page
+1. User page
 
   | Features | Description |
   | --- | --- |
@@ -66,28 +66,70 @@ During the pandemic, a large chunk of retail investing crowded started and I was
   <img src="/assets/transactionlistview.png" width="32.667%"/> 
 </p>
 
-## Configuration ##
+## 💻 Configuration ##
 Take note of the following before you runserver:
 1. Create an account at [IEX Cloud](https://iexcloud.io/ "IEX Cloud webpage") and [marketstack](https://marketstack.com/ "marketstack webpage")
 2. You will only be using these API token:
     - IEX Cloud public API token
     - IEX Cloud sandbox API token (Simulation and unlimited calls)
     - marketstack API token
-3. ***Please change/enter the following codes as shown below***
+3. Create a randomKey.py this file path: mainpage/API/randomKey.py
+```python
+iex_token = 'Enter IEX token'
+iex_sandbox_token = 'Enter IEX sandbox token'
+marketstack_token = 'Enter marketstack token'
+```
+4. Create a db.sqlite3 under your root project.
+5. ***Please create a .env file under your root project!***
 
-![Codes](https://github.com/nicholas5538/StockPortfolio-repo/blob/main/assets/pseudocode.png?raw=true)
+```python
+# Input all of these into the .env file
+# Enter the relevant values without any quotations!
 
-4. It is adviseable to run the application in virtual environment:
+SECRET_KEY = Enter your own key here
+DATABASE_NAME = Enter database name
+DATABASE_USER = Enter database user
+DATABASE_PASSWORD = Enter database password
+DATABASE_HOST = Enter database host
+EMAIL_USER = Enter email address
+EMAIL_PASSWORD = Enter email password
+```
 
-![Virtual Environment codes](https://github.com/nicholas5538/StockPortfolio-repo/blob/main/assets/venv.png?raw=true)
+6. ***It is advisable to create a virtual environment to test program!***
 
-## Challenges faced ##
+  **Type all of these into the terminal only**
+
+- To create a virtual environment under the root directory:
+```
+python -m venv venv
+```
+
+- To activate virtual environment:
+```
+venv\Scripts\activate
+```
+
+- To deactivate virtual environment:
+```
+deactivate
+```
+
+- To install Python libraries in requirements.txt (Adviseable to do this under virtual environment):
+```
+pip install -r requirements.txt
+```
+
+7. Run project locally
+
+![Virtual Environment codes](https://github.com/nicholas5538/StockPortfolio-repo/blob/main/assets/runlocal.png?raw=true)
+
+## 😔 Challenges faced ##
 - Web application is not responsive yet, it can only be used in desktop fullscreen mode
 - Loading time exceeds 10 seconds for 2 of the web pages due to lack of knowledge in DSA for optimizing my codes
 - Having difficulties applying DOM and CSS properties
 - UI of the application need a lot of room for improvement
 
-### To-do list ###
+## 📔 To-do list ##
 - [x] Deploy web page to Heroku
 - [ ] Make the web page more responsive
 - [ ] Implement edit transaction feature
