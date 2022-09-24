@@ -1,58 +1,41 @@
-import csv, requests
-import pandas as pd
+import requests
 from decimal import Decimal
 from .randomKey import iex_token, iex_sandbox_token, marketstack_token
 
-# Extracting symbols from downloaded CSV
+# Request
+def request_url(url):
+    return requests.get(url).json()
+
+# Extracting ticker symbols
 def us_equities():
-    market_data = 'mainpage/API/allTickerSymbols.csv'
-    df = pd.read_csv(market_data)
-    # Make a new dataframe containing ticker symbols only
-    symbols_df = df[['Symbol']].copy()
-
-    # Check if new dataframe contains null
-    if symbols_df['Symbol'].isnull().sum() > 0:
-        symbols_df.dropna(axis=1, how='any')
-        print('Null data present')
-    else:
-        symbols_df.columns = symbols_df.iloc[0]
-        symbols_df = symbols_df[1:]
-    # file_path = 'C:/Users/nicho/Desktop/Python/StocksTracker/StockPortfolio-repo/mainpage/API/ticker_symbols.csv'
-    file_path = 'mainpage/API/ticker_symbols.csv'
-    symbols_df.to_csv(file_path, encoding='utf-8', index=False)
-
-    # Open symbols.csv
-    with open(file_path, newline='') as f:
-        reader = csv.reader(f, delimiter=' ')
-        # Storing all symbols into a list
-        ticker_symbols = [', '.join(row) for row in reader]
-    return ticker_symbols
+    url = 'https://dumbstockapi.com/stock?format=tickers-only&countries=US'
+    response = request_url(url)
+    return sorted(response)
 
 def company_quote(symbol):
     url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/quote?token={iex_sandbox_token}' 
-    response = requests.get(url).json()
+    response = request_url(url)
     return response
 
 def get_latest_price(symbol):
     url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/price?token={iex_sandbox_token}'
-    return Decimal(requests.get(url).json())
+    response = request_url(url)
+    return Decimal(response)
 
 def get_one_year_price(symbol):
-    # one_yr_date = (datetime.now() - relativedelta(years=1)).strftime('%Y-%m-%d')
-    # url = f'http://api.marketstack.com/v1/eod/{one_yr_date}?access_key={token}&symbols={symbol}'
-    # requests.get(url).json()['data']['close']
     url = f'https://sandbox.iexapis.com/stable/stock/{symbol}/chart/1y?token={iex_sandbox_token}'
-    return Decimal(requests.get(url).json()[-1]['close'])
+    response = request_url(url)
+    return Decimal(response[-1]['close'])
 
 def get_ytd_price(symbol):
     # for 2022
     url = f'http://api.marketstack.com/v1/eod/2022-01-03?access_key={marketstack_token}&symbols={symbol}'
-    data = requests.get(url).json()["data"]
+    data = request_url(url)["data"]
     return Decimal(dict(data[-1])['close'])
 
 def indices_performance():
     indices = ['SPY', 'QQQ', 'DIA']
-    spy_performances, nasdaq_performances, djia_performances = [], [], []
+    spy_performances, nasdaq_performances, djia_performances = [[] for _ in range(3)]
     for indice in indices:
         latest_price = get_latest_price(indice)
         ytd_price = get_ytd_price(indice)
