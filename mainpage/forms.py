@@ -223,7 +223,7 @@ class ClosePositionForm(UpdatePortfolioForm):
                 'name': 'share',
                 'id': 'sharenumber',
                 'step': '0.0001',
-                'oninput': 'total_calculation();',
+                'oninput': 'close_total_calculation();',
             })
     )
 

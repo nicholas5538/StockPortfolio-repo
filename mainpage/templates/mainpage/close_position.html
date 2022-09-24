@@ -3,16 +3,7 @@
 {% block extra_head_content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'mainpage/update_portfolio.css' %}">
-<script defer>
-    function total_calculation() {
-        let share = parseFloat(document.getElementById('sharenumber').value);
-        let avg = parseFloat(document.getElementById('avgp').value);
-        let commission_fee = parseFloat(document.getElementById('commission').value);
-        var total = share * avg - commission_fee;
-        // document.getElementById('commission').value = parseFloat(commission_fee).toFixed(2);
-        document.getElementById('costb').value = parseFloat(total).toFixed(2);
-    }
-</script>
+<script defer src="{% static 'mainpage/calculation.js' %}"></script>
 {% endblock %}
 {% block content %}
 <div class="container">
