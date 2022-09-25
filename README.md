@@ -10,33 +10,24 @@ During the pandemic, a large chunk of retail investing crowded started and I was
 ### Video Demostration: **<a href="https://youtu.be/T_cgG668pf4" target="_blank">StocksTracker Website Demostration</a>** ###
 **[StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url")** is a web application that allows user to gain a quick insight into the performance of their stock portfolio and investment transactions.
 
-***Note***: 
-1. Website can only be used in Desktop Fullscreen mode since it is not responsive.
-2. Heroku will preserve dyno hours from wasting, resulting in slow loading time for the first hit only.
+***Note:*** 
+1. __Website can only be used in Desktop Fullscreen mode__ since it is not responsive.
+2. Heroku will preserve dyno hours from wasting, resulting in __slow loading time for the first hit only__.
 
 #### Tech used: ####
-* Programming language
 
-  <img alt="Python" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/python/python-original.svg"/>
-* Framework
+<img align="left" alt="Python" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/python/python-original.svg" style="padding-right:10px;"/>
+<img align="left" alt="django" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/django/django-original.svg" style="padding-right:10px;"/>
+<img align="left" alt="HTML5" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/html5/html5-original.svg" style="padding-right:10px;"/>
+<img align="left" alt="CSS3" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/css3/css3-original.svg" style="padding-right:10px;" />
+<img align="left" alt="JavaScript" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/javascript/javascript-original.svg" style="padding-right:10px;" />
+<img align="left" alt="Bootstrap" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" style="padding-right:10px;" />
+<img align="left" alt="PostgreSQL" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/postgresql/postgresql-original.svg" style="padding-right:10px;"/>
+<img align="left" alt="VScode" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/visualstudio/visualstudio-plain.svg" style="padding-right:10px;"/> 
+<img align="left" alt="Heroku" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-  <img alt="django" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/django/django-original.svg"/>
-* Frontend
+### [StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url") is split into the following: ###
 
-  <img alt="HTML5" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/html5/html5-original.svg"/>
-  <img alt="CSS3" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/css3/css3-original.svg"    style="padding-right:10px;" />
-  <img alt="JavaScript" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/javascript/javascript-original.svg" style="padding-right:10px;" />
-  <img alt="Bootstrap" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" style="padding-right:10px;" />
-* Backend
-
-  <img alt="PostgreSQL" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/postgresql/postgresql-original.svg"/>
-* Tools
-
-  <img alt="VScode" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/visualstudio/visualstudio-plain.svg"/> 
-  <img alt="Heroku" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg" style="padding-right:10px;" /> 
-
-
-#### **[StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url")** is split into the following: ####
 1. User page
 
   | Features | Description |
@@ -68,12 +59,12 @@ During the pandemic, a large chunk of retail investing crowded started and I was
 
 ## 💻 Configuration ##
 Take note of the following before you runserver:
-1. Create an account at [IEX Cloud](https://iexcloud.io/ "IEX Cloud webpage") and [marketstack](https://marketstack.com/ "marketstack webpage")
+1. Create an account at [IEX Cloud](https://iexcloud.io/ "IEX Cloud") and [marketstack](https://marketstack.com/ "marketstack")
 2. You will only be using these API token:
-    - IEX Cloud public API token
-    - IEX Cloud sandbox API token (Simulation and unlimited calls)
-    - marketstack API token
-3. Create a randomKey.py this file path: mainpage/API/randomKey.py
+    - [IEX Cloud](https://iexcloud.io/ "IEX Cloud") public API token ➡️ Live Data
+    - [IEX Cloud](https://iexcloud.io/ "IEX Cloud") sandbox API token ➡️ Simulated Data
+    - [marketstack](https://marketstack.com/ "marketstack") API token ➡️ Live Data
+3. Create a randomKey.py this file path: __mainpage/API/randomKey.py__
 ```python
 iex_token = 'Enter IEX token'
 iex_sandbox_token = 'Enter IEX sandbox token'
