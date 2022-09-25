@@ -24,7 +24,8 @@ During the pandemic, a large chunk of retail investing crowded started and I was
 <img align="left" alt="Bootstrap" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" style="padding-right:10px;" />
 <img align="left" alt="PostgreSQL" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/postgresql/postgresql-original.svg" style="padding-right:10px;"/>
 <img align="left" alt="VScode" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/visualstudio/visualstudio-plain.svg" style="padding-right:10px;"/> 
-<img align="left" alt="Heroku" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img align="left" alt="Heroku" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg"/>&nbsp;&nbsp;
+
 
 ### [StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url") is split into the following: ###
 
