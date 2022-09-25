@@ -1,6 +1,12 @@
-import requests
+import requests, os
 from decimal import Decimal
-from .randomKey import iex_token, iex_sandbox_token, marketstack_token
+from dotenv import load_dotenv
+
+load_dotenv()
+
+iex_token = os.environ.get('IEX_TOKEN')
+iex_sandbox_token = os.environ.get('IEX_SANDBOX_TOKEN')
+marketstack_token = os.environ.get('MARKETSTACK_TOKEN')
 
 # Request
 def request_url(url):
