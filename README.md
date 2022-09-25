@@ -61,18 +61,27 @@ During the pandemic, a large chunk of retail investing crowded started and I was
 ## 💻 Configuration ##
 Take note of the following before you runserver:
 1. Create an account at [IEX Cloud](https://iexcloud.io/ "IEX Cloud") and [marketstack](https://marketstack.com/ "marketstack")
+
 2. You will only be using these API token:
     - [IEX Cloud](https://iexcloud.io/ "IEX Cloud") public API token ➡️ Live Data
     - [IEX Cloud](https://iexcloud.io/ "IEX Cloud") sandbox API token ➡️ Simulated Data
     - [marketstack](https://marketstack.com/ "marketstack") API token ➡️ Live Data
-3. Create a randomKey.py this file path: __mainpage/API/randomKey.py__
+
+3. If you choose to utilise another database other than Heroku-PostgreSQL
 ```python
-iex_token = 'Enter IEX token'
-iex_sandbox_token = 'Enter IEX sandbox token'
-marketstack_token = 'Enter marketstack token'
+DATABASES = {
+    'default': {
+        'ENGINE': # Enter your own database engine,
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT':  # Enter your own database port,
+    }
+}
 ```
-4. Create a db.sqlite3 under your root project.
-5. ***Please create a .env file under your root project!***
+
+4. ***Please create a .env file under your root project***
 
 ```python
 # Input all of these into the .env file
@@ -85,9 +94,12 @@ DATABASE_PASSWORD = Enter database password
 DATABASE_HOST = Enter database host
 EMAIL_USER = Enter email address
 EMAIL_PASSWORD = Enter email password
+IEX_TOKEN = Enter IEX token
+IEX_SANDBOX_TOKEN = Enter IEX sandbox token
+MARKETSTACK_TOKEN = Enter marketstack token
 ```
 
-6. ***It is advisable to create a virtual environment to test program!***
+5. ***It is advisable to create a virtual environment to test program***
 
   **Type all of these into the terminal only**
 
@@ -111,7 +123,7 @@ deactivate
 pip install -r requirements.txt
 ```
 
-7. Run project locally
+6. Run project locally
 
 ![Virtual Environment codes](https://github.com/nicholas5538/StockPortfolio-repo/blob/main/assets/runlocal.png?raw=true)
 
