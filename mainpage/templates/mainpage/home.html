@@ -62,7 +62,7 @@
                         <tbody>
                             <tr>
                                 <th scope="row">S&P 500 .SPX</th>
-                                {% for performance in spy %}
+                                {% for performance in spy.values %}
                                 {% if performance < 0 %}
                                 <td id="negative">
                                 {% else %}
@@ -74,7 +74,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">NASDAQ .IXIC</th>
-                                {% for performance in nasdaq %}
+                                {% for performance in nasdaq.values %}
                                 {% if performance < 0 %}
                                 <td id="negative">
                                 {% else %}
@@ -86,7 +86,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">DJIA .DJI</th>
-                                {% for performance in djia %}
+                                {% for performance in djia.values %}
                                 {% if performance < 0 %}
                                 <td id="negative">
                                 {% else %}
