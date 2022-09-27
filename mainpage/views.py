@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, ListView, TemplateView
 from mainpage.models import Portfolio, Transaction, TickerSymbols
 from .forms import UpdatePortfolioForm, EditProfileForm, ClosePositionForm
-from .API.tickersymbols import company_quote, get_latest_price, indices_performance
+from .API.tickersymbols import Ticker, indices_performance
 from datetime import datetime
 from decimal import Decimal
 
@@ -32,7 +32,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
                 return transactions[:transaction_count]
         return []
 
-    def empty_portfolio(self, context, tickers, spy, nasdaq, djia):
+    def empty_portfolio(self, context, tickers, indices):
         buy_transactions, sell_transactions, top_holdings, net_liquidity, allocation = ([] for i in range(5))
         fields = [
             'tickers', 'buy_transactions', 'sell_transactions', 
@@ -41,8 +41,8 @@ class HomeView(LoginRequiredMixin, TemplateView):
             ]
         values = [
             tickers, buy_transactions, sell_transactions, 
-            top_holdings, net_liquidity, spy, 
-            nasdaq, djia, allocation
+            top_holdings, net_liquidity, indices['SPY'], 
+            indices['QQQ'], indices['DIA'], allocation
             ]
         for field, value in zip(fields, values):
             context[field] = value
@@ -55,10 +55,10 @@ class HomeView(LoginRequiredMixin, TemplateView):
         portfolio = Portfolio.objects.filter(user_id=current_user).order_by('-current_value')
         buy_transactions = Transaction.objects.filter(user_id=current_user, transaction='BUY').order_by('-transaction_date')
         sell_transactions = Transaction.objects.filter(user_id=current_user, transaction='SELL').order_by('-transaction_date')
-        spy, nasdaq, djia = indices_performance()
+        indices = indices_performance()
         
         if not sell_transactions.exists() and not buy_transactions.exists():
-            return self.empty_portfolio(context, tickers, spy, nasdaq, djia)
+            return self.empty_portfolio(context, tickers, indices)
             
         if portfolio.exists():
             positions = portfolio.count()
@@ -66,7 +66,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
                 position_count = 5
             else:
                 position_count = positions
-            price = [get_latest_price(position.symbol) for position in portfolio]
+            price = [Ticker(position.symbol).get_latest_price() for position in portfolio]
             top_positions = [position.symbol for position in portfolio]
             current_value = [position.total_shares * latest_price for position, latest_price in zip(portfolio, price)]
             net_liquidity = sum(current_value)
@@ -83,8 +83,8 @@ class HomeView(LoginRequiredMixin, TemplateView):
             ]
         values = [
             tickers, self.count_transaction(buy_transactions), self.count_transaction(sell_transactions), 
-            top_holdings, net_liquidity, spy, 
-            nasdaq, djia, allocation
+            top_holdings, net_liquidity, indices['SPY'], 
+            indices['QQQ'], indices['DIA'], allocation
             ]
 
         for field, value in zip(fields, values):
@@ -108,7 +108,7 @@ class PortfolioView(LoginRequiredMixin, TemplateView):
         # Update current value and P&L whenever there is a get request
         daily_profit_loss = net_liquidity = net_profit_loss = 0
         for position in portfolio:
-            company_info = company_quote(position.symbol)
+            company_info = Ticker(position.symbol).company_quote()
             latest_price = Decimal(company_info['latestPrice'])
             previous_close = Decimal(company_info['previousClose'])
             profit_loss = latest_price - previous_close
@@ -185,7 +185,7 @@ class UpdatePortfolioView(LoginRequiredMixin, FormView):
         transaction_form.symbol = symbol
 
         # API requests to extract appropriate data
-        company_info = company_quote(symbol)
+        company_info = Ticker(symbol).company_quote()
         existing_position = Portfolio.objects.filter(user_id=self.request.user.id, symbol__exact=symbol)
         latest_price = Decimal(company_info['latestPrice'])
         new_entry = {
@@ -414,7 +414,7 @@ class DeleteTransactionView(LoginRequiredMixin, TemplateView):
                         total_shares -= shares
                         cost_basis -= shares * query['avg_price']
                 
-                current_value = get_latest_price(symbol) * total_shares
+                current_value = Ticker(symbol).get_latest_price() * total_shares
                 position.total_shares = total_shares
                 position.avg_price = cost_basis / total_shares
                 position.cost_basis = cost_basis
