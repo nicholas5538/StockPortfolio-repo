@@ -113,9 +113,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for position, percentage in allocation %}
+                            {% for ticker, percentage in allocation %}
                             <tr>
-                                <th scope="row">{{ position }}</th>
+                                <th scope="row">{{ ticker }}</th>
                                 <td>{{ percentage|floatformat:"-2" }}</td>
                             </tr>
                             {% endfor %}

@@ -21,62 +21,43 @@ def us_equities():
     response = request_url(url)
     return sorted(response)
 
-class Ticker:
 
-    def __init__(self, ticker):
-        self.ticker = ticker
+def company_quote(ticker):
+    url = f'{sandbox_url}{ticker}/quote?token={iex_sandbox_token}' 
+    response = request_url(url)
+    return response
 
-    def __str__(self):
-        return f'Ticker symbol: {self.ticker}'
+def get_ytd_price(tickers):
+    # for 2022
+    url = f'http://api.marketstack.com/v1/eod/2022-01-03?access_key={marketstack_token}&symbols={",".join(tickers)}'
+    response = list(dict(request_url(url))['data'])
+    return [Decimal(response[2]['close']), Decimal(response[1]['close']), Decimal(response[0]['close'])]
 
-    def company_quote(self):
-        url = f'{sandbox_url}{self.ticker}/quote?token={iex_sandbox_token}' 
-        response = request_url(url)
+def get_latest_price(tickers):
+        if len(tickers) > 1:
+            tickers = ",".join(tickers)
+        else:
+            tickers = tickers[0]
+        url = f"{sandbox_url}market/batch?token={iex_sandbox_token}&types=price&symbols={tickers}"
+        response = list(dict(request_url(url)).values())
+        response = [Decimal(ticker['price']) for ticker in response]
         return response
-    
-    def get_latest_price(self):
-        url = f'{sandbox_url}{self.ticker}/price?token={iex_sandbox_token}'
-        response = request_url(url)
-        return Decimal(response)
-
-    def get_one_year_price(self):
-        url = f'{sandbox_url}{self.ticker}/chart/1y?token={iex_sandbox_token}'
-        response = request_url(url)
-        return Decimal(response[-1]['close'])
-
-    def get_ytd_price(self):
-        # for 2022
-        url = f'http://api.marketstack.com/v1/eod/2022-01-03?access_key={marketstack_token}&symbols={self.ticker}'
-        data = request_url(url)["data"]
-        return Decimal(dict(data[-1])['close'])
 
 def indices_performance():
+    indices = ['SPY', 'QQQ', 'DIA']
     performances = {
-    'SPY': {'ytd': 0, 'oneYear': 0},
-    'QQQ': {'ytd': 0, 'oneYear': 0},
-    'DIA': {'ytd': 0, 'oneYear': 0},
+    indices[0]: {'ytdPerf': 0, 'oneYearPerf': 0},
+    indices[1]: {'ytdPerf': 0, 'oneYearPerf': 0},
+    indices[2]: {'ytdPerf': 0, 'oneYearPerf': 0},
     }
-    indices = [Ticker('SPY'), Ticker('QQQ'), Ticker('DIA')]
 
-    def addValues(index):
-        if index == 0:
-            indice = 'SPY'
-        elif index == 1:
-            indice = 'QQQ'
-        else:
-            indice = 'DIA'
-
-        performances[indice]['ytd'] = ytd_math
-        performances[indice]['oneYear'] = one_year_math
-
-        return performances
-
+    url = f"{sandbox_url}market/batch?token={iex_sandbox_token}&types=price,chart&range=1y&symbols={','.join(indices)}"
+    current_one_year_price = dict(request_url(url))
+    ytd_price = get_ytd_price(indices)
     for index, indice in enumerate(indices):
-        latest_price = indice.get_latest_price()
-        ytd_price = indice.get_ytd_price()
-        one_year_price = indice.get_one_year_price()
-        ytd_math = (latest_price - ytd_price)/ytd_price * 100
-        one_year_math = (latest_price - one_year_price)/one_year_price * 100
-        indices = addValues(index)
+        current_price = Decimal(current_one_year_price[indice]['price'])
+        one_year_price = Decimal(current_one_year_price[indice]['chart'][0]['close'])
+        performances[indice]['oneYearPerf'] = (current_price - one_year_price)/one_year_price * 100
+        performances[indice]['ytdPerf'] = (current_price - ytd_price[index])/ytd_price[index] * 100
 
-    return indices
+    return performances
