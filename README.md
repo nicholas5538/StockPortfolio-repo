@@ -3,7 +3,7 @@
 </p>
 
 # 💪 Motivation #
-During the pandemic, a large chunk of retail investing crowded started and I was one of them. Upon using Interactive Brokers, I wasn't satisifed with the amount of clicks I needed to access my investment transactions, the performance of my portfolio and many more. __Hence, I created this project to not only learn more about web development, but to gain a quick insight of my stock portfolio with relative ease and elevated convenience.__
+During the pandemic, it has spurred a flood of new retail investors into the stock market and I was one of them. Upon using Interactive Brokers, I wasn't satisifed with the amount of clicks I needed to access my investment transactions, the performance of my portfolio and many more. __Hence, I created this project to not only learn more about web development, but to gain a quick insight of my stock portfolio with relative ease and elevated convenience.__
 
 # 📝 About The Project #
 ### Website URL: **<a href="https://stockstracker-app.herokuapp.com/user/login/" target="_blank">💹 StocksTracker</a>** ###
