@@ -33,12 +33,12 @@ class HomeView(LoginRequiredMixin, TemplateView):
             for position in portfolio[:positions]:
                 top_tickers.append(position.symbol)
                 top_shares.append(position.total_shares)
-            price = get_latest_price(top_tickers)
-            current_value = [shares * latest_price for shares, latest_price in zip(top_shares, price)]
+            latest_prices = get_latest_price(top_tickers)
+            current_value = [shares * latest_price for shares, latest_price in zip(top_shares, latest_prices)]
             net_liquidity = sum(current_value)
-            percentage = [(value/net_liquidity * 100) for value in current_value]
-            top_holdings = zip(top_tickers, price, current_value)
-            allocation = zip(top_tickers, percentage)
+            allocation_percentages = [(value/net_liquidity * 100) for value in current_value]
+            top_holdings = zip(top_tickers, latest_prices, current_value)
+            allocation = zip(top_tickers, allocation_percentages)
         else:
             top_holdings, net_liquidity, allocation = ([] for i in range(3))
 
@@ -67,26 +67,22 @@ class PortfolioView(LoginRequiredMixin, TemplateView):
         tickers = TickerSymbols.objects.all()
         portfolio = Portfolio.objects.filter(user_id=current_user).order_by('company_name')
         date = datetime.today().strftime('%d %b %Y %I:%M:%S %p')
-        
-        # Get all relevant tickers
-        daily_pc, price = [], []
-        # Update current value and P&L whenever there is a get request
+        daily_percentage_changes, latest_prices = [], []
         daily_profit_loss = net_liquidity = net_profit_loss = 0
-        for position in portfolio:
-            company_info = company_quote(position.symbol)
-            latest_price = Decimal(company_info['latestPrice'])
-            previous_close = Decimal(company_info['previousClose'])
-            profit_loss = latest_price - previous_close
-            shares = position.total_shares
-            current_value = latest_price * shares
-            daily_pc.append(profit_loss/previous_close * 100)
-            price.append(latest_price)
-            daily_profit_loss += profit_loss * shares
+        positions = [position.symbol for position in portfolio]
+        company_infos = company_quotes(positions)            
+        for index, company in enumerate(company_infos):
+            position = Portfolio.objects.filter(user_id=current_user, company_name__exact=company[0])
+            previous_close = Decimal(company[2])
+            latest_prices.append(Decimal(company[1]))
+            total_shares = position.values('total_shares')[0].get('total_shares')
+            current_value = latest_prices[index] * total_shares
+            profit_loss = latest_prices[index] - previous_close
+            daily_percentage_changes.append(profit_loss/previous_close * 100)
+            daily_profit_loss += profit_loss * total_shares
+            net_profit_loss += position.values('profit_loss')[0].get('profit_loss')
             net_liquidity += current_value
-            net_profit_loss += position.profit_loss
-            position.current_value = current_value
-            position.profit_loss = current_value - position.cost_basis
-            position.save()
+            position.update(current_value=current_value, profit_loss=current_value-position.values('cost_basis')[0].get('cost_basis'))
 
         context_fields = [
             'tickers', 
@@ -100,7 +96,7 @@ class PortfolioView(LoginRequiredMixin, TemplateView):
         values = [
             tickers, 
             portfolio, 
-            zip(daily_pc, price, portfolio), 
+            zip(daily_percentage_changes, latest_prices, portfolio), 
             date, 
             daily_profit_loss, 
             net_liquidity, 
@@ -150,12 +146,12 @@ class UpdatePortfolioView(LoginRequiredMixin, FormView):
         transaction_form.symbol = symbol
 
         # API requests to extract appropriate data
-        company_info = company_quote(symbol)
+        company_info = company_quotes(symbol)
         existing_position = Portfolio.objects.filter(user_id=self.request.user.id, symbol__exact=symbol)
-        latest_price = Decimal(company_info['latestPrice'])
+        latest_price = Decimal(company_info[1])
         new_entry = {
             'avg_price': average_price,
-            'company_name': company_info['companyName'],
+            'company_name': company_info[0],
             'cost_basis': total_cost,
             'current_value': share * latest_price,
             'profit_loss': share * latest_price - total_cost,
@@ -318,7 +314,7 @@ class ClosePositionView(LoginRequiredMixin, FormView):
         [print(f'{field}: {form.cleaned_data.get(field)}') for field in fields]
         # Print error(s) 
         print(form.errors)
-        return super(ClosePositionView, self).form_invalid(form)
+        return super().form_invalid(form)
 
     def form_valid(self, form):
         current_user = self.request.user.id
@@ -328,7 +324,7 @@ class ClosePositionView(LoginRequiredMixin, FormView):
         symbol = form.cleaned_data.get('symbol')
         Portfolio.objects.get(user_id=current_user, symbol__exact=symbol).delete()
         messages.add_message(self.request, messages.INFO, f'Your {symbol} position has been fully closed')
-        return super(ClosePositionView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class DeleteTransactionView(LoginRequiredMixin, TemplateView):
@@ -366,6 +362,7 @@ class DeleteTransactionView(LoginRequiredMixin, TemplateView):
             return redirect(reverse('mainpage:transactions', kwargs={'pk': current_user}))
         else:
             # Condition 2: Delete 'Sell' or 'BUY' with existing position
+            message = 'Transaction has been deleted'
             if update_shares > 0:
                 total_shares = cost_basis = 0
                 transaction.delete()
@@ -379,7 +376,7 @@ class DeleteTransactionView(LoginRequiredMixin, TemplateView):
                         total_shares -= shares
                         cost_basis -= shares * query['avg_price']
                 
-                current_value = get_latest_price([symbol]) * total_shares
+                current_value = get_latest_price(symbol) * total_shares
                 position.total_shares = total_shares
                 position.avg_price = cost_basis / total_shares
                 position.cost_basis = cost_basis
@@ -393,8 +390,7 @@ class DeleteTransactionView(LoginRequiredMixin, TemplateView):
                 position.delete()
             # Condition 4: Delete 'BUY' but new shares < 0
             else:
-                self.message(f'Fail to delete, you do not have enough {symbol} shares')
-                return redirect(reverse('mainpage:transactions', kwargs={'pk': current_user}))
+                message = f'Fail to delete, you do not have enough {symbol} shares'
 
-        self.message('Transaction has been deleted')
+        self.message(message)
         return redirect(reverse('mainpage:transactions', kwargs={'pk': current_user}))
