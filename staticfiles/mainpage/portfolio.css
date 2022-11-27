@@ -1,0 +1,212 @@
+.container {
+    width: calc(100% - 200px);
+    max-width: 100%;
+    min-height: 100%;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    margin-left: 200px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 150px;
+    letter-spacing: 0.05rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* message block */
+.message {
+    padding: 5px;
+}
+
+.message > ul {
+    list-style-type: none;
+    background-color: #D3D3D3;
+    max-width: 600px;
+    height: 45px;
+    border-radius: 5px;
+    padding: 0;
+    margin : 0;
+}
+
+.messages li {
+    padding: 10.5px 7.5px;
+    color: var(--color2);
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+/* Container for table */
+.portfolio
+{
+    width: 1400px;
+    height: auto;
+    margin-left: 20px;
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: var(--color2);
+    margin-bottom: 40px;
+    box-shadow: 0 5px 10px 1px var(--color2);
+}
+
+.title {
+    color: var(--color1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+    cursor: default;
+}
+
+.info {
+    max-width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.08rem;
+}
+
+.info .date span {
+    display: flex;
+    flex-direction: row;
+}
+
+.info .date span p {
+    margin-bottom: 0;
+}
+
+.info > div > p {
+    margin-bottom: 0;
+}
+
+.info .date span button {
+    background: none;
+    border: none;
+    color: var(--color1);
+}
+
+.info .date span button:hover {
+    color: #DC143C;
+    transform: scale(1.1);
+    transition : var(--transition2);
+}
+
+.net_liquidity, .net_profit_loss, .daily_pl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.portfolio .no_position {
+    color: var(--color3);
+    font-size: 0.8rem;
+    margin-left: 20px;
+}
+
+/* CSS for table */
+div.table-wrap {
+    height: auto;
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    font-size: 0.75rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+table thead>tr>th {
+    cursor: default;
+}
+
+table tbody>tr>th>a {
+    text-decoration: none;
+    color: var(--color1);
+}
+
+table tbody>tr>th>a:hover {
+    color: #FF0000;
+    transition: color 0.3s;
+}
+
+#positive {
+    color: var(--positive);
+}
+
+#negative {
+    color: var(--negative);
+}
+
+/* Action button */
+div > button.action {
+    background: none;
+    border: none;
+    color: var(--color1);
+    cursor: pointer;
+}
+
+div > button.action:hover {
+    color: var(--color4);
+}
+
+/* Table dropdown menu */
+.dropdown-menu.show {
+    height: auto;
+    min-width: 240px;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    font-size: 0.7rem;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--color2);
+}
+
+.dropdown-menu li {
+    width: 100%;
+    height: 100%;
+    padding: 7px;
+    text-align: center;
+}
+
+#close {
+    background-color: #DC143C;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#close:hover {
+    background-color: #B22222;
+    transition: var(--transition1);
+}
+
+#buysell {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#buysell:hover {
+    background-color:rgb(48, 48, 48);
+    transition: var(--transition1);
+}
+
+.dropdown-menu li a {
+    color: var(--color1);
+    text-decoration: none;
+}

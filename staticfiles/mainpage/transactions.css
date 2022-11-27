@@ -1,0 +1,110 @@
+.container {
+    width: calc(100% - 200px);
+    max-width: 100%;
+    min-height: 100%;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    margin-left: 200px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 150px;
+    letter-spacing: 0.05rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* message block */
+.message {
+    padding: 5px;
+}
+
+.message > ul {
+    list-style-type: none;
+    background-color: #D3D3D3;
+    max-width: 600px;
+    height: 45px;
+    border-radius: 5px;
+    padding: 0;
+    margin : 0;
+}
+
+.messages li {
+    padding: 10.5px 7.5px;
+    color: var(--color2);
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+/* Container for table */
+.buyContainer, .sellContainer
+{
+    width: 1000px;
+    height: auto;
+    margin-left: 20px;
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--color2);
+    margin-bottom: 40px;
+    box-shadow: 0 5px 10px 1px var(--color2);
+}
+
+h2 {
+    color: var(--color1);
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.buyContainer > p, .sellContainer > p {
+    color: var(--color3);
+    font-size: 0.8rem;
+    margin-left: 20px;
+}
+
+.buyContainer p > a, .sellContainer p > a {
+    text-decoration: none;
+    color: var(--negative);
+}
+
+.buyContainer p > a:hover, .sellContainer p > a:hover {
+    text-decoration: underline;
+
+}
+
+/* CSS for table */
+div.table-wrap {
+    height: 270px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 20px;
+}
+
+table {
+    width: 100%;
+    font-size: 0.75rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+table thead>tr>th {
+    position: sticky;
+    top: 0px;
+    cursor: default;
+}
+
+/* Action button */
+#delete, #delete a {
+    background: none;
+    border: none;
+    color: var(--color1);
+    cursor: pointer;
+}
+
+#delete a:hover i {
+    color: #686767;
+    scale: 1.3;
+    transition: all 0.3s ease;
+}
