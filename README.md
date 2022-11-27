@@ -6,9 +6,9 @@
 During the pandemic, it has spurred a flood of new retail investors into the stock market and I was one of them. Upon using Interactive Brokers, I wasn't satisifed with the amount of clicks I needed to access my investment transactions, the performance of my portfolio and many more. __Hence, I created this project to not only learn more about web development, but to gain a quick insight of my stock portfolio with relative ease and elevated convenience.__
 
 # 📝 About The Project #
-### Website URL: **<a href="https://stockstracker-app.herokuapp.com/user/login/" target="_blank">💹 StocksTracker</a>** ###
+### Website URL: **<a href="https://stockstracker.up.railway.app/user/login/" target="_blank">💹 StocksTracker</a>** ###
 ### Video Demostration: **<a href="https://youtu.be/T_cgG668pf4" target="_blank">StocksTracker Website Demostration</a>** ###
-**[StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url")** is a web application that allows user to gain a quick insight into the performance of their stock portfolio and investment transactions.
+**[StocksTracker](https://stockstracker.up.railway.app/user/login/ "StocksTracker url")** is a web application that allows user to gain a quick insight into the performance of their stock portfolio and investment transactions.
 
 ***Note:*** 
 1. __Website can only be used in Desktop Fullscreen mode__ since it is not responsive.
@@ -27,7 +27,7 @@ During the pandemic, it has spurred a flood of new retail investors into the sto
 <img align="left" alt="Heroku" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg"/>&nbsp;&nbsp;
 
 
-### [StocksTracker](https://stockstracker-app.herokuapp.com/user/login/ "StocksTracker url") is split into the following: ###
+### [StocksTracker](https://stockstracker.up.railway.app/user/login/ "StocksTracker url") is split into the following: ###
 
 1. User page
 
