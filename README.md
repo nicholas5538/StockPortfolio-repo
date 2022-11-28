@@ -3,7 +3,7 @@
 </p>
 
 # 💪 Motivation #
-During the pandemic, it has spurred a flood of new retail investors into the stock market and I was one of them. Upon using Interactive Brokers, I wasn't satisifed with the amount of clicks I needed to access my investment transactions, the performance of my portfolio and many more. __Hence, I created this project to not only learn more about web development, but to gain a quick insight of my stock portfolio with relative ease and elevated convenience.__
+During the pandemic, it has spurred a flood of new retail investors into the stock market and I was one of them. Upon using [Interactive Brokers](https://www.interactivebrokers.com/en/home.php "IBKR url"), I wasn't satisifed with the amount of clicks I needed to access my investment transactions, the performance of my portfolio and many more. __Hence, I created this project to not only learn more about web development, but to gain a quick insight of my stock portfolio with relative ease and elevated convenience.__
 
 # 📝 About The Project #
 ### Website URL: **<a href="https://stockstracker.up.railway.app/user/login/" target="_blank">💹 StocksTracker</a>** ###
@@ -22,10 +22,7 @@ During the pandemic, it has spurred a flood of new retail investors into the sto
 <img align="left" alt="CSS3" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/css3/css3-original.svg" style="padding-right:10px;" />
 <img align="left" alt="JavaScript" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/javascript/javascript-original.svg" style="padding-right:10px;" />
 <img align="left" alt="Bootstrap" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" style="padding-right:10px;" />
-<img align="left" alt="PostgreSQL" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/postgresql/postgresql-original.svg" style="padding-right:10px;"/>
-<img align="left" alt="VScode" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/visualstudio/visualstudio-plain.svg" style="padding-right:10px;"/> 
-<img align="left" alt="Heroku" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-plain-wordmark.svg"/>&nbsp;&nbsp;
-
+<img alt="PostgreSQL" width="40px" src="https://cdn.jsdelivr.net/npm/devicon-2.2@2.2.0/icons/postgresql/postgresql-original.svg" style="padding-right:10px;"/>
 
 ### [StocksTracker](https://stockstracker.up.railway.app/user/login/ "StocksTracker url") is split into the following: ###
 
@@ -67,7 +64,7 @@ Take note of the following before you runserver:
     - [IEX Cloud](https://iexcloud.io/ "IEX Cloud") sandbox API token ➡️ Simulated Data
     - [marketstack](https://marketstack.com/ "marketstack") API token ➡️ Live Data
 
-3. If you choose to utilise another database other than Heroku-PostgreSQL
+3. If you choose to utilise another database other than Railway-PostgreSQL
 ```python
 DATABASES = {
     'default': {
@@ -129,11 +126,11 @@ pip install -r requirements.txt
 
 ## 😔 Challenges faced ##
 - Web application is not responsive yet, it can only be used in desktop fullscreen mode
-- Loading time exceeds 10 seconds for 2 of the web pages due to lack of knowledge in DSA for optimizing my codes
+- Loading time exceeds 10 seconds for 2 of the web pages due to lack of knowledge in DSA
 - Having difficulties applying DOM and CSS properties
-- UI of the application need a lot of room for improvement
+- There is a lot of room for improvement with regards to the UI/UX portion
 
 ## 📔 To-do list ##
-- [x] Deploy web page to Heroku
+- [x] Deploy web page to [Railway](https://railway.app/ "Railway url")
 - [ ] Make the web page more responsive
 - [ ] Implement edit transaction feature
