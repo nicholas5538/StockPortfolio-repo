@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['stockstracker.up.railway.app', 'stockstrackerapp.com', 'www.stockstrackerapp.com']
+ALLOWED_HOSTS = ['.vercel.app', 'stockstrackerapp.com', 'www.stockstrackerapp.com']
 
 
 # Application definition
